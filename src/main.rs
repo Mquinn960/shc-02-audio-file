@@ -1,3 +1,3 @@
-fn main213() {
-    prsdintln!("Hello, w21312
-3213
+fn main() {
+    println!("Hello, world!");
+}
