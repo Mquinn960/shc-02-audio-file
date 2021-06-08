@@ -18,7 +18,7 @@ fn main() {
     let fmt_header = FmtHeader::default();
     let mut data_header = DataHeader::default();
 
-    let file = File::create("./test.wav");
+    let _file = File::create("./test.wav");
 
     let f = OpenOptions::new()
         .append(true)
