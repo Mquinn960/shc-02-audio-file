@@ -10,7 +10,6 @@ pub struct FmtHeader {
 }
 
 impl FmtHeader {
-
     fn new(id: &'static str, 
            size: u32,
            audio_format: u16,
@@ -31,20 +30,19 @@ impl FmtHeader {
             bits_per_sample: bits_per_sample
         }
     }
-
 }
 
 impl Default for FmtHeader {
     fn default () -> FmtHeader {
         FmtHeader{
-            subchunk_1_id: br"NONE".to_vec(),
-            subchunk_1_size: 0,
-            audio_format: 0,
-            num_channels: 0,
-            sample_rate: 0,
-            byte_rate: 0,
-            block_align: 0,
-            bits_per_sample: 0
+            subchunk_1_id: br"fmt ".to_vec(),
+            subchunk_1_size: 16,
+            audio_format: 1,
+            num_channels: 1,
+            sample_rate: 44100,
+            byte_rate: 88200,
+            block_align: 2,
+            bits_per_sample: 16
         }
     }
 }
