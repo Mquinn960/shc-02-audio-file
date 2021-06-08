@@ -8,3 +8,4 @@ edition = "2018"
 
 [dependencies]
 byteorder = "1"
+dasp_signal= "0.11.0"
