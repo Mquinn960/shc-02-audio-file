@@ -12,29 +12,32 @@ use header::fmt_header::FmtHeader;
 use header::data_header::DataHeader;
 
 fn main() {
-    println!("Started...");
+    println!("Creating WAV file...");
 
     let mut riff_header = RiffHeader::default();
-    let mut fmt_header = FmtHeader::default();
+    let fmt_header = FmtHeader::default();
     let mut data_header = DataHeader::default();
 
     let file = File::create("./test.wav");
 
     let f = OpenOptions::new()
-        .create(true)
         .append(true)
         .open("./test.wav")
         .expect("Unable to open file");
     let mut f = BufWriter::new(f);
 
+    let duration = 20;
+    let freq = 50.0;
+
     // Actual data
     let mut data = Vec::new();
-    let mut i = 0;
-    while i < 100000 {
-        data.write_u16::<LittleEndian>(43000).unwrap();
-        i += 1;
+    let take_samples = (fmt_header.sample_rate * duration) as usize;
+
+    // Create sinewave generator and sample
+    let signal = signal::rate(fmt_header.sample_rate as f64).const_hz(freq).sine();
+    for n in signal.scale_amp(32767.0).take(take_samples) {
+        data.write_i16::<LittleEndian>(n as i16).unwrap();
     }
-    
     let data_len = data.len();
     let data_size = u32::try_from(data_len).unwrap();
 
@@ -71,5 +74,5 @@ fn main() {
 
     f.write_all(&data).expect("Unable to write data");
 
-    println!("Finished!");
+    println!("WAV File created!");
 }
