@@ -27,7 +27,7 @@ fn main() {
     let mut f = BufWriter::new(f);
 
     let duration = 20;
-    let freq = 50.0;
+    let freq = 800.0;
 
     // Actual data
     let mut data = Vec::new();
